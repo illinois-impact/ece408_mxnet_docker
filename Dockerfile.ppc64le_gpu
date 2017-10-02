@@ -1,4 +1,4 @@
-FROM carml/mxnet:ppc64le-gpu-latest
+FROM carml/go-mxnet:ppc64le-gpu-latest
 LABEL maintainer="pearson@illinois.edu"
 
 RUN apt-get update && apt-get install -y python-pip \
@@ -6,4 +6,4 @@ RUN apt-get update && apt-get install -y python-pip \
 
 RUN pip install --user quilt
 
-RUN export MXNET_SRC_ROOT="/mxnet"
+RUN export MXNET_SRC_ROOT="$FRAMEWORKS_DIR/mxnet"
