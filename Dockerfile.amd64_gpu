@@ -1,4 +1,5 @@
 FROM carml/mxnet:amd64-gpu-latest
+LABEL maintainer="pearson@illinois.edu"
 
 RUN apt-get update && apt-get install -y python-pip \
     && rm -rf /var/lib/apt/lists/*
