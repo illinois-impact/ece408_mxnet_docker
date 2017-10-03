@@ -7,10 +7,14 @@ ifeq ($(arch),ppc64le)
 	carml_arch=ppc64le
 endif
 
-all: build
+all: build_gpu build_cpu
 
-build:
+.PHONY: build_gpu build_cpu
+build_gpu:
 	docker build . -f Dockerfile.$(arch)_gpu -t cwpearson/2017fa_ece408_mxnet_docker:$(arch)-gpu-latest
 
-build_and_push: build
+build_cpu:
+	docker build . -f Dockerfile.$(arch)_cpu -t cwpearson/2017fa_ece408_mxnet_docker:$(arch)-cpu-latest
+
+build_and_push: build_gpu build_cpu
 	docker push cwpearson/2017fa_ece408_mxnet_docker
