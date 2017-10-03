@@ -17,4 +17,4 @@ COPY models ${MODELS_DIR}
 
 RUN pip install --user numpy
 
-RUN export MXNET_SRC_ROOT="$FRAMEWORKS_DIR/mxnet"
+ENV MXNET_SRC_ROOT=${FRAMEWORKS_DIR}/mxnet
