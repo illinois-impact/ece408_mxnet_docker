@@ -4,11 +4,16 @@ LABEL maintainer="pearson@illinois.edu"
 RUN apt-get update && apt-get install -y python-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN export DATA_ROOT="/fashion-mnist"
-RUN wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz -P "$DATA_ROOT"
-RUN wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz -P "$DATA_ROOT"
-RUN wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz -P "$DATA_ROOT"
-RUN wget http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz -P "$DATA_ROOT"
+ENV DATA_ROOT="/fashion-mnist"
+RUN wget -qS -P "$DATA_ROOT" \
+    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
+    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
+    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
+    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
+
+# Add saved models to docker image
+ENV MODELS_DIR="/models"
+COPY models ${MODELS_DIR}
 
 RUN pip install --user numpy
 
