@@ -9,6 +9,10 @@ endif
 
 all: build_gpu build_cpu
 
+build: build_cpu build_gpu
+
+build_and_push: build_and_push_cpu build_and_push_gpu
+
 .PHONY: build_gpu build_cpu
 build_gpu:
 	docker build . -f Dockerfile.$(arch)_gpu -t cwpearson/2017fa_ece408_mxnet_docker:$(arch)-gpu-latest
