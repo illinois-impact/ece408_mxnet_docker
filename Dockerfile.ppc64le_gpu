@@ -1,8 +1,15 @@
 FROM carml/go-mxnet:ppc64le-gpu-latest
 LABEL maintainer="pearson@illinois.edu"
 
-RUN apt-get update && apt-get install -y python-pip \
+# Install PIP
+RUN apt-get update && apt-get install -y \
+    python-pip \
     && rm -rf /var/lib/apt/lists/*
+RUN pip install --upgrade pip
+
+# Install MXNet python bindings
+ENV MXNET_SRC_ROOT=/mxnet
+RUN pip install --user -e $MXNET_SRC_ROOT/python
 
 ENV DATA_ROOT="/fashion-mnist"
 RUN wget -qS -P "$DATA_ROOT" \
@@ -14,7 +21,3 @@ RUN wget -qS -P "$DATA_ROOT" \
 # Add saved models to docker image
 ENV MODELS_DIR="/models"
 COPY models ${MODELS_DIR}
-
-RUN pip install --user numpy
-
-ENV MXNET_SRC_ROOT=/mxnet
