@@ -29,4 +29,4 @@ ENV PYTHONUNBUFFERED=1
 # Catch timing emitted from ece 408 mxnet solution
 ADD filter_mxnet.py /filter_mxnet.py
 ADD wrapper.sh /wrapper.sh
-ENTRYPOINT ["/wrapper.sh"]
+# ENTRYPOINT ["/wrapper.sh"]
