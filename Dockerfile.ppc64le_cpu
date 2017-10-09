@@ -22,3 +22,6 @@ RUN wget -qS -P "$DATA_ROOT" \
 # Add saved models to docker image
 ENV MODELS_DIR="/models"
 COPY models ${MODELS_DIR}
+
+# Make python unbuffered
+ENV PYTHONUNBUFFERED=1
