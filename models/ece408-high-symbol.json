@@ -7,7 +7,7 @@
     }, 
     {
       "op": "null", 
-      "name": "new1_weight", 
+      "name": "new0_weight", 
       "attr": {
         "kernel": "(5, 5)", 
         "num_filter": "50"
@@ -16,7 +16,7 @@
     }, 
     {
       "op": "New", 
-      "name": "new1", 
+      "name": "new0", 
       "attr": {
         "kernel": "(5, 5)", 
         "num_filter": "50"
@@ -25,13 +25,13 @@
     }, 
     {
       "op": "Activation", 
-      "name": "activation1", 
+      "name": "activation0", 
       "attr": {"act_type": "tanh"}, 
       "inputs": [[2, 0, 0]]
     }, 
     {
       "op": "Pooling", 
-      "name": "pooling1", 
+      "name": "pooling0", 
       "attr": {
         "kernel": "(2, 2)", 
         "pool_type": "max", 
@@ -64,7 +64,7 @@
     }, 
     {
       "op": "Activation", 
-      "name": "activation2", 
+      "name": "activation1", 
       "attr": {"act_type": "tanh"}, 
       "inputs": [[8, 0, 0]]
     }, 
