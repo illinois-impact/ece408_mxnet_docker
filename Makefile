@@ -1,10 +1,7 @@
 arch=$(shell arch)
 
 ifeq ($(arch),x86_64)
-	carml_arch=amd64
-endif
-ifeq ($(arch),ppc64le)
-	carml_arch=ppc64le
+	arch=amd64
 endif
 
 all: build_gpu build_cpu
