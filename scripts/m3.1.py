@@ -22,6 +22,7 @@ if len(sys.argv) > 3:
 # Log to stdout for MXNet
 logging.getLogger().setLevel(logging.DEBUG)  # logging to stdout
 
+print "New Inference"
 print "Loading fashion-mnist data...",
 test_images, test_labels = load_mnist(path="/fashion-mnist", kind="t10k")
 test_images = test_images.reshape((10000, 1, 28, 28))
