@@ -12,7 +12,7 @@ RUN pip install --upgrade pip
 ENV MXNET_SRC_ROOT=/mxnet
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
 RUN pip install --user -e $MXNET_SRC_ROOT/python \
-    && pip uninstall mxnet
+    && pip uninstall -y mxnet
 
 ENV DATA_ROOT="/fashion-mnist"
 RUN wget -qS -P "$DATA_ROOT" \
