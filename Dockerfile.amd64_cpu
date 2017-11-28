@@ -28,3 +28,7 @@ COPY models ${MODELS_DIR}
 # Add evaluation scripts to docker image
 ENV  SCRIPTS_DIR="/eval-scripts"
 COPY scripts ${SCRIPTS_DIR}
+
+# Add support source code to docker image
+ENV ECE408_SRC_DIR="/ece408-src"
+COPY ece408-src ${ECE408_SRC_DIR}
