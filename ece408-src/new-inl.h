@@ -111,8 +111,18 @@ public:
   // zero the output.
   y_4d = scalar<DType>(0) * y_4d;
 
+  // Synchronize before timer
+#ifdef __CUDACC__
+  MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
+#endif
+
   auto start = std::chrono::high_resolution_clock::now();
   forward<xpu, DType>(y_4d, x_4d, w_4d);
+
+  // Synchronize after student code
+#ifdef __CUDACC__
+  MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
+#endif
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed_seconds = end-start;
   fprintf(stdout, "Op Time: %f\n", elapsed_seconds.count());
