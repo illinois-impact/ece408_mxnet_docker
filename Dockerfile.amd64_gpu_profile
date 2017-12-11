@@ -3,12 +3,11 @@ LABEL maintainer="pearson@illinois.edu"
 
 # Install mxnet
 ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=0
-ENV MXNET_SRC=/mxnet
-ENV MXNET_ROOT=/opt/frameworks/mxnet
+ENV MXNET_ROOT=/mxnet
 WORKDIR /
-RUN git clone --single-branch --depth 1 --branch v0.11.0 --recursive https://github.com/apache/incubator-mxnet "$MXNET_SRC"
+RUN git clone --single-branch --depth 1 --branch v0.11.0 --recursive https://github.com/apache/incubator-mxnet "$MXNET_ROOT"
 
-RUN cd "$MXNET_SRC" && \
+RUN cd "$MXNET_ROOT" && \
   mkdir -p "$MXNET_ROOT" &&  \
   cp make/config.mk . && \
   echo "USE_BLAS=openblas" >>config.mk && \
@@ -18,10 +17,7 @@ RUN cd "$MXNET_SRC" && \
   echo "USE_CUDA_PATH=/usr/local/cuda" >>config.mk && \
   echo "USE_CUDNN=1" >>config.mk && \
   echo "NVCCFLAGS=-lineinfo" >>config.mk && \
-  nice -n20 make -j`nproc` ADD_LDFLAGS=-L/usr/local/cuda/lib64/stubs PREFIX=/opt/frameworks/mxnet &&  \
-  cp -r include "$MXNET_ROOT" && \
-  cp -r lib "$MXNET_ROOT" && \
-  rm -r build
+  nice -n20 make -j`nproc` ADD_LDFLAGS=-L/usr/local/cuda/lib64/stubs PREFIX=/opt/frameworks/mxnet
 
 RUN ln -s "$MXNET_ROOT/lib/libmxnet.so" /usr/lib/libmxnet.so
 ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
