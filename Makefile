@@ -7,11 +7,11 @@ endif
 DOCKER_REPO = cwpearson/2017fa_ece408_mxnet_docker
 COMMIT = `git rev-parse --short HEAD`
 
-all: build_gpu build_cpu build_profile
+all: build
 
-build: build_cpu build_gpu
+build: build_cpu build_gpu build_profile
 
-build_and_push: build_and_push_cpu build_and_push_gpu
+build_and_push: build_and_push_cpu build_and_push_gpu build_and_push_profile
 
 .PHONY: build_gpu build_cpu
 build_gpu:
