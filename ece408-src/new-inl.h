@@ -48,7 +48,7 @@ struct NewParam : public dmlc::Parameter<NewParam>
   }
 };
 
-template<typename xpu, typename DType>
+template <typename xpu, typename DType>
 void forward(mshadow::Tensor<xpu, 4, DType> &y, const mshadow::Tensor<xpu, 4, DType> &x, const mshadow::Tensor<xpu, 4, DType> &w);
 
 template <typename xpu, typename DType>
@@ -60,7 +60,6 @@ public:
     this->param_ = p;
   }
 
-
   virtual void Forward(const OpContext &ctx,
                        const std::vector<TBlob> &in_data,
                        const std::vector<OpReqType> &req,
@@ -70,26 +69,24 @@ public:
     using namespace mshadow;
     using namespace mshadow::expr;
     CHECK_EQ(req[conv::kOut], kWriteTo);
-    CHECK_EQ(in_data.size(), 2U);         // two inputs with no bias
-    CHECK_EQ(out_data.size(), 1U);        // create a single output
-    CHECK_EQ(req[conv::kOut], kWriteTo);  // expect to be overwriting output
+    CHECK_EQ(in_data.size(), 2U);                             // two inputs with no bias
+    CHECK_EQ(out_data.size(), 1U);                            // create a single output
+    CHECK_EQ(req[conv::kOut], kWriteTo);                      // expect to be overwriting output
     CHECK_EQ(this->param_.kernel[0], this->param_.kernel[1]); // ECE408: square kernel
-    
+
     const auto &x = in_data[conv::kData];
     const auto &xshape = x.shape_;
     const auto &w = in_data[conv::kWeight];
     const auto &wshape = w.shape_;
     const auto &y = out_data[conv::kOut];
     const auto &yshape = y.shape_;
-    
-    CHECK_EQ(wshape.ndim(), 4U); // num_filter , channel  y, x
+
+    CHECK_EQ(wshape.ndim(), 4U);                  // num_filter , channel  y, x
     CHECK_EQ(wshape[0], this->param_.num_filter); // ECE408: support 1 group
     CHECK_EQ(wshape[1], xshape[1]);
     CHECK_EQ(wshape[2], wshape[3]); // square kernel
-    CHECK_EQ(xshape.ndim(), 4U); // batch, num_filter, y, x
+    CHECK_EQ(xshape.ndim(), 4U);    // batch, num_filter, y, x
     CHECK_EQ(yshape.ndim(), 4U);
-
-
 
     CHECK_EQ(yshape[0], xshape[0]);
     CHECK_EQ(yshape[1], this->param_.num_filter);
@@ -108,25 +105,24 @@ public:
     Tensor<xpu, 4, DType> x_4d = x.get_with_shape<xpu, 4, DType>(
         Shape4(xshape[0], xshape[1], xshape[2], xshape[3]), s);
 
-  // zero the output.
-  y_4d = scalar<DType>(0) * y_4d;
+    // zero the output.
+    y_4d = scalar<DType>(0) * y_4d;
 
-  // Synchronize before timer
+    // Synchronize before timer
 #ifdef __CUDACC__
-  MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
+    MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
 #endif
 
-  auto start = std::chrono::high_resolution_clock::now();
-  forward<xpu, DType>(y_4d, x_4d, w_4d);
+    auto start = std::chrono::high_resolution_clock::now();
+    forward<xpu, DType>(y_4d, x_4d, w_4d);
 
-  // Synchronize after student code
+    // Synchronize after student code
 #ifdef __CUDACC__
-  MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
+    MSHADOW_CUDA_CALL(cudaDeviceSynchronize());
 #endif
-  auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end-start;
-  fprintf(stdout, "Op Time: %f\n", elapsed_seconds.count());
-              
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    fprintf(stdout, "Op Time: %f\n", elapsed_seconds.count());
   }
 
   virtual void Backward(const OpContext &ctx,
@@ -140,7 +136,7 @@ public:
     // See https://bitbucket.org/hwuligans/2017fa_ece408_project_solution
     // for an implementation of this if you need to generate model parameters.
     // That repo should not be released to students
-    CHECK_EQ(0,1) << "Backward pass unimplemented for ECE408";
+    CHECK_EQ(0, 1) << "Backward pass unimplemented for ECE408";
   }
 
 protected:
@@ -238,7 +234,6 @@ public:
   {
     return "New";
   }
-
 
   Operator *CreateOperator(Context ctx) const override
   {
