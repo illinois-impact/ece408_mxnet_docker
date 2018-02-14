@@ -1,3 +1,7 @@
-# 2017fa_ece408_mxnet_docker #
+# ece408_mxnet_docker #
 
-This dockerfile is the base image for RAI development for 2017 Fall ECE408 final project
+The repository contains the dockerfiles for the RAI environments used in the ECE408 final project.
+
+Check the branches for different semesters.
+
+Presently, images are hosted at [cwpearson/ece408_mxnet_docker](https://hub.docker.com/r/cwpearson/ece408_mxnet_docker).
