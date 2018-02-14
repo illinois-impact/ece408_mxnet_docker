@@ -2,7 +2,7 @@ FROM carml/go-mxnet:ppc64le-cpu-latest
 LABEL maintainer="pearson@illinois.edu"
 
 # Install PIP
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     python-pip \
     time \
     && rm -rf /var/lib/apt/lists/*
