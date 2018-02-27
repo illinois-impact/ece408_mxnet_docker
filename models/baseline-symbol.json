@@ -11,7 +11,7 @@
       "attr": {
         "kernel": "(5, 5)", 
         "no_bias": "True", 
-        "num_filter": "50"
+        "num_filter": "6"
       }, 
       "inputs": []
     }, 
@@ -21,7 +21,7 @@
       "attr": {
         "kernel": "(5, 5)", 
         "no_bias": "True", 
-        "num_filter": "50"
+        "num_filter": "6"
       }, 
       "inputs": [[0, 0, 0], [1, 0, 0]]
     }, 
@@ -42,33 +42,53 @@
       "inputs": [[3, 0, 0]]
     }, 
     {
+      "op": "null", 
+      "name": "convolution1_weight", 
+      "attr": {
+        "kernel": "(5, 5)", 
+        "no_bias": "True", 
+        "num_filter": "16"
+      }, 
+      "inputs": []
+    }, 
+    {
+      "op": "Convolution", 
+      "name": "convolution1", 
+      "attr": {
+        "kernel": "(5, 5)", 
+        "no_bias": "True", 
+        "num_filter": "16"
+      }, 
+      "inputs": [[4, 0, 0], [5, 0, 0]]
+    }, 
+    {
       "op": "Flatten", 
       "name": "flatten0", 
-      "inputs": [[4, 0, 0]]
+      "inputs": [[6, 0, 0]]
     }, 
     {
       "op": "null", 
       "name": "fullyconnected0_weight", 
-      "attr": {"num_hidden": "500"}, 
+      "attr": {"num_hidden": "140"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
       "name": "fullyconnected0_bias", 
-      "attr": {"num_hidden": "500"}, 
+      "attr": {"num_hidden": "140"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
       "name": "fullyconnected0", 
-      "attr": {"num_hidden": "500"}, 
-      "inputs": [[5, 0, 0], [6, 0, 0], [7, 0, 0]]
+      "attr": {"num_hidden": "140"}, 
+      "inputs": [[7, 0, 0], [8, 0, 0], [9, 0, 0]]
     }, 
     {
       "op": "Activation", 
       "name": "activation1", 
       "attr": {"act_type": "tanh"}, 
-      "inputs": [[8, 0, 0]]
+      "inputs": [[10, 0, 0]]
     }, 
     {
       "op": "null", 
@@ -86,7 +106,7 @@
       "op": "FullyConnected", 
       "name": "fullyconnected1", 
       "attr": {"num_hidden": "10"}, 
-      "inputs": [[9, 0, 0], [10, 0, 0], [11, 0, 0]]
+      "inputs": [[11, 0, 0], [12, 0, 0], [13, 0, 0]]
     }, 
     {
       "op": "null", 
@@ -96,10 +116,10 @@
     {
       "op": "SoftmaxOutput", 
       "name": "softmax", 
-      "inputs": [[12, 0, 0], [13, 0, 0]]
+      "inputs": [[14, 0, 0], [15, 0, 0]]
     }
   ], 
-  "arg_nodes": [0, 1, 6, 7, 10, 11, 13], 
+  "arg_nodes": [0, 1, 5, 8, 9, 12, 13, 15], 
   "node_row_ptr": [
     0, 
     1, 
@@ -116,8 +136,10 @@
     12, 
     13, 
     14, 
-    15
+    15, 
+    16, 
+    17
   ], 
-  "heads": [[14, 0, 0]], 
+  "heads": [[16, 0, 0]], 
   "attrs": {"mxnet_version": ["int", 1100]}
 }

@@ -26,33 +26,34 @@ ENV LIBRARY_PATH "$MXNET_ROOT/lib":$LIBRARY_PATH
 
 # Install PIP
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python-pip python-setuptools \
+    python-pip python-setuptools python3-pip python3-setuptools \
     time \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
 
 # Install MXNet python bindings, then remove so only prereqs remain
-ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=0
 ENV MXNET_SRC_ROOT=/mxnet
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
 RUN pip install --user -e $MXNET_SRC_ROOT/python \
     && pip uninstall -y mxnet
 
-ENV DATA_ROOT="/fashion-mnist"
-RUN wget -qS -P "$DATA_ROOT" \
-    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz \
-    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz \
-    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz \
-    http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz
-
-# Add saved models to docker image
-ENV MODELS_DIR="/models"
-COPY models ${MODELS_DIR}
+# Install data-generation prerequisites
+RUN pip3 install --user numpy scikit-image
 
 # Add evaluation scripts to docker image
 ENV  SCRIPTS_DIR="/eval-scripts"
 COPY scripts ${SCRIPTS_DIR}
 
+# Generate data
+ENV DATA_ROOT="/fashion-mnist"
+RUN "${SCRIPTS_DIR}"/generate-data.py "$DATA_ROOT"
+RUN rm "${SCRIPTS_DIR}"/generate-data.py
+
+# Add saved models to docker image
+ENV MODELS_DIR="/models"
+COPY models ${MODELS_DIR}
+
 # Add support source code to docker image
-ENV ECE408_SRC_DIR="/ece408-src"
-COPY ece408-src ${ECE408_SRC_DIR}
+ENV ECE408_SRC_DIR="/ece408_src"
+COPY ece408_src ${ECE408_SRC_DIR}
