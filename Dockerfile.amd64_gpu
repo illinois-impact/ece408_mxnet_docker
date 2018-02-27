@@ -26,7 +26,7 @@ ENV LIBRARY_PATH "$MXNET_ROOT/lib":$LIBRARY_PATH
 
 # Install PIP
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python-pip python-setuptools python3-pip python3-setuptools \
+    python-pip python-setuptools python-dev python3-pip python3-setuptools python3-dev \
     time \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip
