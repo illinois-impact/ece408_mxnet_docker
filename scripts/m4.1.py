@@ -37,13 +37,14 @@ test_iter = mx.io.NDArrayIter(
     test_images, test_labels, batch_size)
 
 # Evaluate the network
-print "Loading model...",
+print "Loading model..."
 lenet_model = mx.mod.Module.load(
     prefix=MODEL_DIR + "/" + model_prefix, epoch=2, context=mx.gpu())
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
 
+print "New Inference"
 acc = mx.metric.Accuracy()
 lenet_model.score(test_iter, acc)
 print "Correctness:", acc.get()[1], "Model:", model_prefix
