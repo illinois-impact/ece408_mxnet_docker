@@ -1,7 +1,6 @@
 
 #include "./new-inl.h"
 #include "./new-forward.cuh"
-#include "./new-backward.cuh"
 #include <vector>
 
 namespace mxnet

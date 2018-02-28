@@ -1,7 +1,6 @@
 
 #include "./new-inl.h"
 #include "./new-forward.h"
-#include "./new-backward.h"
 
 namespace mxnet
 {

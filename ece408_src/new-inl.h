@@ -50,10 +50,6 @@ struct NewParam : public dmlc::Parameter<NewParam>
 
 template <typename xpu, typename DType>
 void forward(mshadow::Tensor<xpu, 4, DType> &y, const mshadow::Tensor<xpu, 4, DType> &x, const mshadow::Tensor<xpu, 4, DType> &w);
-template <typename cpu, typename DType>
-void backward_x(mshadow::Tensor<cpu, 4, DType> &dx, const mshadow::Tensor<cpu, 4, DType> &dy, const mshadow::Tensor<cpu, 4, DType> &k);
-template <typename gpu, typename DType>
-void backward_w(mshadow::Tensor<gpu, 4, DType> &dw, const mshadow::Tensor<gpu, 4, DType> &x, const mshadow::Tensor<gpu, 4, DType> &dy);
 
 template <typename xpu, typename DType>
 class NewOp : public Operator
@@ -140,57 +136,7 @@ public:
     // See https://bitbucket.org/hwuligans/2017fa_ece408_project_solution
     // for an implementation of this if you need to generate model parameters.
     // That repo should not be released to students
-    // CHECK_EQ(0,1) << "Backward pass unimplemented for ECE408";
-
-    using namespace mshadow;
-    using namespace mshadow::expr;
-    CHECK_EQ(out_grad.size(), 1U);
-    size_t expected = 2;
-    CHECK(in_data.size() == expected && in_grad.size() == expected);
-    CHECK_EQ(req.size(), expected);
-    CHECK_EQ(in_data[conv::kWeight].CheckContiguous(), true);
-
-    const auto &k = in_data[conv::kWeight];
-    const auto &kshape = k.shape_;
-    const auto &dk = in_grad[conv::kWeight];
-    const auto &dkshape = dk.shape_;
-
-    CHECK_EQ(kshape, dkshape);
-
-    const auto &x = in_data[conv::kData];
-    const auto &xshape = x.shape_;
-    const auto &dx = in_grad[conv::kData];
-    const auto &dxshape = dx.shape_;
-
-    CHECK_EQ(xshape, dxshape);
-
-    const auto &dy = out_grad[conv::kOut];
-    const auto &dyshape = dy.shape_;
-
-    Stream<xpu> *s = ctx.get_stream<xpu>();
-
-    // Get output grad as a 4D tensor
-    Tensor<xpu, 4, DType> dy_4d = dy.get_with_shape<xpu, 4, DType>(
-        Shape4(dyshape[0], dyshape[1], dyshape[2], dyshape[3]), s);
-
-    // Get kernel data as a 4D tensor
-    Tensor<xpu, 4, DType> k_4d = k.get_with_shape<xpu, 4, DType>(
-        Shape4(kshape[0], kshape[1], kshape[2], kshape[3]), s);
-
-    // Get kernel grad as a 4D tensor
-    Tensor<xpu, 4, DType> dk_4d = dk.get_with_shape<xpu, 4, DType>(
-        Shape4(dkshape[0], dkshape[1], dkshape[2], dkshape[3]), s);
-
-    // Get input grad as a 4D tensor
-    Tensor<xpu, 4, DType> dx_4d = dx.get_with_shape<xpu, 4, DType>(
-        Shape4(dxshape[0], dxshape[1], dxshape[2], dxshape[3]), s);
-
-    // Get input data as a 4D tensor
-    Tensor<xpu, 4, DType> x_4d = x.get_with_shape<xpu, 4, DType>(
-        Shape4(xshape[0], xshape[1], xshape[2], xshape[3]), s);
-
-    backward_w<xpu, DType>(dk_4d, x_4d, dy_4d);
-    backward_x<xpu, DType>(dx_4d, dy_4d, k_4d);
+    CHECK_EQ(0,1) << "Backward pass unimplemented for ECE408";
   }
 
 protected:
