@@ -17,6 +17,8 @@ CPU_LATEST = $(REPO_PREFIX)-cpu-latest
 CPU_BRANCH_LATEST = $(REPO_PREFIX)-cpu-$(BRANCH)-latest
 CPU_COMMIT = $(REPO_PREFIX)-cpu-$(COMMIT)
 
+BUILD_FLAGS = #--no-cache
+
 all: build
 
 build: build_cpu build_gpu
@@ -26,14 +28,14 @@ build_and_push: build_and_push_cpu build_and_push_gpu
 .PHONY: build_gpu
 build_gpu:
 	docker pull carml/base:$(arch)-gpu-latest
-	docker build . -f Dockerfile.$(arch)_gpu -t $(GPU_LATEST)
+	docker build $(BUILD_FLAGS) . -f Dockerfile.$(arch)_gpu -t $(GPU_LATEST)
 	docker tag $(GPU_LATEST) $(GPU_BRANCH_LATEST)
 	docker tag $(GPU_LATEST) $(GPU_COMMIT)
 
 .PHONY: build_cpu
 build_cpu:
 	docker pull carml/go-mxnet:$(arch)-cpu-latest
-	docker build . -f Dockerfile.$(arch)_cpu -t $(CPU_LATEST)
+	docker build $(BUILD_FLAGS) . -f Dockerfile.$(arch)_cpu -t $(CPU_LATEST)
 	docker tag $(CPU_LATEST) $(CPU_BRANCH_LATEST)
 	docker tag $(CPU_LATEST) $(CPU_COMMIT)
 
