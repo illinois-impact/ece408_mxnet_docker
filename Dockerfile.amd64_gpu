@@ -1,4 +1,5 @@
 FROM carml/base:amd64-gpu-latest
+https://github.com/rai-project/dlframework/tree/master/dockerfiles/base
 LABEL maintainer="pearson@illinois.edu"
 
 # Install mxnet
