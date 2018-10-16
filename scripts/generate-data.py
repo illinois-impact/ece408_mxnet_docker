@@ -11,7 +11,6 @@ from skimage import io, transform
 import sys
 import os
 
-
 FASHION_MNIST = {
     "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz": "train-images-idx3-ubyte.gz",
     "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz": "train-labels-idx1-ubyte.gz",

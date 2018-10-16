@@ -3,17 +3,17 @@ LABEL maintainer="pearson@illinois.edu"
 
 # Install PIP
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python-pip python-setuptools python3-pip python3-setuptools \
+    python-pip python-setuptools python-dev python3-pip python3-setuptools python3-dev \
     time \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade pip
+RUN pip2 install --upgrade pip
 RUN pip3 install --upgrade pip
 
 # Install MXNet python bindings, then remove so only prereqs remain
 ENV MXNET_SRC_ROOT=/mxnet
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
-RUN pip install --user -e $MXNET_SRC_ROOT/python \
-    && pip uninstall -y mxnet
+RUN pip2 install --user -e $MXNET_SRC_ROOT/python \
+    && pip2 uninstall -y mxnet
 
 # Install data-generation prerequisites
 RUN pip3 install --user numpy scikit-image

@@ -1,4 +1,5 @@
 FROM carml/base:amd64-gpu-latest
+https://github.com/rai-project/dlframework/tree/master/dockerfiles/base
 LABEL maintainer="pearson@illinois.edu"
 
 # Install mxnet
@@ -17,6 +18,7 @@ RUN cd "$MXNET_ROOT" && \
   echo "USE_CUDA_PATH=/usr/local/cuda" >>config.mk && \
   echo "USE_CUDNN=1" >>config.mk && \
   echo "NVCCFLAGS=-lineinfo" >>config.mk && \
+  echo "USE_OPERATOR_TUNING=0" >>config.mk && \
   nice -n20 make -j`nproc` ADD_LDFLAGS=-L/usr/local/cuda/lib64/stubs PREFIX=/opt/frameworks/mxnet
 
 RUN ln -s "$MXNET_ROOT/lib/libmxnet.so" /usr/lib/libmxnet.so
@@ -26,17 +28,17 @@ ENV LIBRARY_PATH "$MXNET_ROOT/lib":$LIBRARY_PATH
 
 # Install PIP
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python-pip python-setuptools python3-pip python3-setuptools \
+    python-pip python-setuptools python-dev python3-pip python3-setuptools python3-dev \
     time \
     && rm -rf /var/lib/apt/lists/*
-RUN pip install --upgrade pip
+RUN pip2 install --upgrade pip
 RUN pip3 install --upgrade pip
 
 # Install MXNet python bindings, then remove so only prereqs remain
 ENV MXNET_SRC_ROOT=/mxnet
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
-RUN pip install --user -e $MXNET_SRC_ROOT/python \
-    && pip uninstall -y mxnet
+RUN pip2 install --user -e $MXNET_SRC_ROOT/python \
+    && pip2 uninstall -y mxnet
 
 # Install data-generation prerequisites
 RUN pip3 install --user numpy scikit-image
