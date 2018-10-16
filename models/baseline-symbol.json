@@ -9,9 +9,9 @@
       "op": "null", 
       "name": "convolution0_weight", 
       "attr": {
-        "kernel": "(5, 5)", 
+        "kernel": "(7, 7)", 
         "no_bias": "True", 
-        "num_filter": "6"
+        "num_filter": "12"
       }, 
       "inputs": []
     }, 
@@ -19,9 +19,9 @@
       "op": "Convolution", 
       "name": "convolution0", 
       "attr": {
-        "kernel": "(5, 5)", 
+        "kernel": "(7, 7)", 
         "no_bias": "True", 
-        "num_filter": "6"
+        "num_filter": "12"
       }, 
       "inputs": [[0, 0, 0], [1, 0, 0]]
     }, 
@@ -45,9 +45,9 @@
       "op": "null", 
       "name": "convolution1_weight", 
       "attr": {
-        "kernel": "(5, 5)", 
+        "kernel": "(7, 7)", 
         "no_bias": "True", 
-        "num_filter": "16"
+        "num_filter": "24"
       }, 
       "inputs": []
     }, 
@@ -55,9 +55,9 @@
       "op": "Convolution", 
       "name": "convolution1", 
       "attr": {
-        "kernel": "(5, 5)", 
+        "kernel": "(7, 7)", 
         "no_bias": "True", 
-        "num_filter": "16"
+        "num_filter": "24"
       }, 
       "inputs": [[4, 0, 0], [5, 0, 0]]
     }, 
@@ -69,19 +69,19 @@
     {
       "op": "null", 
       "name": "fullyconnected0_weight", 
-      "attr": {"num_hidden": "140"}, 
+      "attr": {"num_hidden": "160"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
       "name": "fullyconnected0_bias", 
-      "attr": {"num_hidden": "140"}, 
+      "attr": {"num_hidden": "160"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
       "name": "fullyconnected0", 
-      "attr": {"num_hidden": "140"}, 
+      "attr": {"num_hidden": "160"}, 
       "inputs": [[7, 0, 0], [8, 0, 0], [9, 0, 0]]
     }, 
     {
