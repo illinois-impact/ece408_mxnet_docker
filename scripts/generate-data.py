@@ -20,7 +20,8 @@ FASHION_MNIST = {
 
 ORIG_DIR = Path(sys.argv[1])
 RESZ_DIR = Path(sys.argv[1])
-SHAPE = (64, 64)
+#SHAPE = (64, 64)
+SHAPE = (72, 72)
 
 try:
     ORIG_DIR.mkdir()
