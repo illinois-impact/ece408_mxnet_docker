@@ -8,7 +8,7 @@
     {
       "op": "null", 
       "name": "convolution0_weight", 
-      "attr": {
+      "attrs": {
         "kernel": "(7, 7)", 
         "no_bias": "True", 
         "num_filter": "12"
@@ -18,7 +18,7 @@
     {
       "op": "Convolution", 
       "name": "convolution0", 
-      "attr": {
+      "attrs": {
         "kernel": "(7, 7)", 
         "no_bias": "True", 
         "num_filter": "12"
@@ -28,13 +28,13 @@
     {
       "op": "Activation", 
       "name": "activation0", 
-      "attr": {"act_type": "tanh"}, 
+      "attrs": {"act_type": "tanh"}, 
       "inputs": [[2, 0, 0]]
     }, 
     {
       "op": "Pooling", 
       "name": "pooling0", 
-      "attr": {
+      "attrs": {
         "kernel": "(2, 2)", 
         "pool_type": "max", 
         "stride": "(2, 2)"
@@ -44,7 +44,7 @@
     {
       "op": "null", 
       "name": "convolution1_weight", 
-      "attr": {
+      "attrs": {
         "kernel": "(7, 7)", 
         "no_bias": "True", 
         "num_filter": "24"
@@ -54,7 +54,7 @@
     {
       "op": "Convolution", 
       "name": "convolution1", 
-      "attr": {
+      "attrs": {
         "kernel": "(7, 7)", 
         "no_bias": "True", 
         "num_filter": "24"
@@ -69,43 +69,43 @@
     {
       "op": "null", 
       "name": "fullyconnected0_weight", 
-      "attr": {"num_hidden": "160"}, 
+      "attrs": {"num_hidden": "160"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
       "name": "fullyconnected0_bias", 
-      "attr": {"num_hidden": "160"}, 
+      "attrs": {"num_hidden": "160"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
       "name": "fullyconnected0", 
-      "attr": {"num_hidden": "160"}, 
+      "attrs": {"num_hidden": "160"}, 
       "inputs": [[7, 0, 0], [8, 0, 0], [9, 0, 0]]
     }, 
     {
       "op": "Activation", 
       "name": "activation1", 
-      "attr": {"act_type": "tanh"}, 
+      "attrs": {"act_type": "tanh"}, 
       "inputs": [[10, 0, 0]]
     }, 
     {
       "op": "null", 
       "name": "fullyconnected1_weight", 
-      "attr": {"num_hidden": "10"}, 
+      "attrs": {"num_hidden": "10"}, 
       "inputs": []
     }, 
     {
       "op": "null", 
       "name": "fullyconnected1_bias", 
-      "attr": {"num_hidden": "10"}, 
+      "attrs": {"num_hidden": "10"}, 
       "inputs": []
     }, 
     {
       "op": "FullyConnected", 
       "name": "fullyconnected1", 
-      "attr": {"num_hidden": "10"}, 
+      "attrs": {"num_hidden": "10"}, 
       "inputs": [[11, 0, 0], [12, 0, 0], [13, 0, 0]]
     }, 
     {
@@ -141,5 +141,5 @@
     17
   ], 
   "heads": [[16, 0, 0]], 
-  "attrs": {"mxnet_version": ["int", 1100]}
+  "attrs": {"mxnet_version": ["int", 10300]}
 }

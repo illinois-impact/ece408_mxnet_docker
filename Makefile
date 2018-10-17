@@ -4,7 +4,7 @@ ifeq ($(arch),x86_64)
 	arch=amd64
 endif
 
-DOCKER_REPO = cwpearson/ece408_mxnet_docker
+DOCKER_REPO = illinoisimpact/ece408_mxnet_docker
 COMMIT = $(shell git rev-parse --short HEAD)
 BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
