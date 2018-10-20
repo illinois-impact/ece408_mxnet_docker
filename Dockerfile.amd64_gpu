@@ -13,11 +13,13 @@ RUN cd "$MXNET_ROOT" && \
   echo "USE_BLAS=openblas" >>config.mk && \
   echo "USE_OPENCV=0" >>config.mk && \
   echo "ADD_CFLAGS=-I/usr/include/openblas -Wno-strict-aliasing -Wno-sign-compare -ftrack-macro-expansion=0 -Wno-misleading-indentation" >>config.mk && \
-  echo "CUDA_ARCH=-gencode=arch=compute_30,code=sm_30  -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_50,code=sm_50  -gencode=arch=compute_53,code=sm_53 -gencode=arch=compute_60,code=sm_60  -gencode=arch=compute_61,code=sm_61  -gencode=arch=compute_62,code=sm_62 -gencode=arch=compute_70,code=compute_70"  >>config.mk && \
+  echo "CUDA_ARCH=-gencode=arch=compute_70,code=compute_70"  >>config.mk && \
   echo "USE_CUDA=1" >>config.mk && \
   echo "USE_CUDA_PATH=/usr/local/cuda" >>config.mk && \
   echo "USE_CUDNN=1" >>config.mk && \
   echo "NVCCFLAGS=-lineinfo" >>config.mk && \
+  echo "DUSE_NVRTC=0" >>config.mk && \
+  echo "USE_NVRTC=0" >>config.mk && \
   nice -n20 make -j`nproc` ADD_LDFLAGS=-L/usr/local/cuda/lib64/stubs PREFIX=/opt/frameworks/mxnet
 
 RUN ln -s "$MXNET_ROOT/lib/libmxnet.so" /usr/lib/libmxnet.so
@@ -35,12 +37,18 @@ RUN pip3 install --upgrade pip
 
 # Install MXNet python bindings, then remove so only prereqs remain
 ENV MXNET_SRC_ROOT=/mxnet
+RUN pip3 uninstall numpy
+RUN pip3 install --user numpy==1.14
+RUN pip2 uninstall numpy
+RUN pip2 install --user numpy==1.14
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
 RUN pip2 install --user -e $MXNET_SRC_ROOT/python \
     && pip2 uninstall -y mxnet
 
 # Install data-generation prerequisites
-RUN pip3 install --user numpy scikit-image
+RUN pip3 install --user numpy==1.14 scikit-image requests graphviz certifi chardet idna urllib3
+RUN pip2 install --user numpy==1.14 scikit-image requests graphviz certifi chardet idna urllib3
+
 
 # Add evaluation scripts to docker image
 ENV  SCRIPTS_DIR="/eval-scripts"
@@ -58,3 +66,8 @@ COPY models ${MODELS_DIR}
 # Add support source code to docker image
 ENV ECE408_SRC_DIR="/ece408_src"
 COPY ece408_src ${ECE408_SRC_DIR}
+
+ENV CUDA_CACHE_MAXSIZE=2147483647
+ENV CUDA_CACHE_DISABLE=0
+
+
