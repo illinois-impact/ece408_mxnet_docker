@@ -67,7 +67,8 @@ COPY models ${MODELS_DIR}
 ENV ECE408_SRC_DIR="/ece408_src"
 COPY ece408_src ${ECE408_SRC_DIR}
 
+#ADD nv cache to container (support for raider machines with titan v)
 ENV CUDA_CACHE_MAXSIZE=2147483647
 ENV CUDA_CACHE_DISABLE=0
-
-
+ENV CUDA_CACHE_PATH=/root/ComputeCache
+COPY .nv /root/.
