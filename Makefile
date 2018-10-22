@@ -27,10 +27,10 @@ build_and_push: build_and_push_cpu build_and_push_gpu
 
 .PHONY: build_gpu
 build_gpu:
-	docker pull carml/base:$(arch)-gpu-latest
-	docker build $(BUILD_FLAGS) . -f Dockerfile.$(arch)_gpu -t $(GPU_LATEST)
-	docker tag $(GPU_LATEST) $(GPU_BRANCH_LATEST)
-	docker tag $(GPU_LATEST) $(GPU_COMMIT)
+	nvidia-docker pull carml/base:$(arch)-gpu-latest
+	nvidia-docker build $(BUILD_FLAGS) . -f Dockerfile.$(arch)_gpu -t $(GPU_LATEST)
+	nvidia-docker tag $(GPU_LATEST) $(GPU_BRANCH_LATEST)
+	nvidia-docker tag $(GPU_LATEST) $(GPU_COMMIT)
 
 .PHONY: build_cpu
 build_cpu:
@@ -45,6 +45,6 @@ build_and_push_cpu: build_cpu
 	docker push $(CPU_COMMIT)
 
 build_and_push_gpu: build_gpu
-	docker push $(GPU_LATEST)
-	docker push $(GPU_BRANCH_LATEST)
-	docker push $(GPU_COMMIT)
+	nvidia-docker push $(GPU_LATEST)
+	nvidia-docker push $(GPU_BRANCH_LATEST)
+	nvidia-docker push $(GPU_COMMIT)

@@ -11,12 +11,17 @@ RUN pip3 install --upgrade pip
 
 # Install MXNet python bindings, then remove so only prereqs remain
 ENV MXNET_SRC_ROOT=/mxnet
+RUN pip3 uninstall numpy
+RUN pip3 install --user numpy==1.14
+RUN pip2 uninstall numpy
+RUN pip2 install --user numpy==1.14
+
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
 RUN pip2 install --user -e $MXNET_SRC_ROOT/python \
     && pip2 uninstall -y mxnet
 
 # Install data-generation prerequisites
-RUN pip3 install --user numpy scikit-image
+RUN pip3 install --user numpy==1.14 scikit-image
 
 # Add evaluation scripts to docker image
 ENV  SCRIPTS_DIR="/eval-scripts"

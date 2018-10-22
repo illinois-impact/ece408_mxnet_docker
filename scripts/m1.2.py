@@ -22,7 +22,7 @@ test_iter = mx.io.NDArrayIter(
 # Evaluate the network
 print "Loading model...",
 lenet_model = mx.mod.Module.load(
-    prefix='/models/baseline', epoch=2, context=mx.gpu())
+    prefix='/models/ece408', epoch=2, context=mx.gpu())
 lenet_model.bind(data_shapes=test_iter.provide_data,
                  label_shapes=test_iter.provide_label)
 print "done"
