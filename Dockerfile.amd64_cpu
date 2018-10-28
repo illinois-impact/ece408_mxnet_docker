@@ -1,4 +1,4 @@
-FROM carml/go-mxnet:amd64-cpu-latest
+FROM carml/base:amd64-cpu-latest
 LABEL maintainer="zaidq2@illinois.edu"
 
 # Install PIP
@@ -16,7 +16,29 @@ RUN pip3 install --user numpy==1.14
 RUN pip2 uninstall numpy
 RUN pip2 install --user numpy==1.14
 
+ENV MXNET_ROOT=/mxnet
+
+RUN git clone --single-branch --depth 1 --branch v1.3.x --recursive https://github.com/apache/incubator-mxnet "$MXNET_ROOT"
+RUN cd "$MXNET_ROOT" && \
+  mkdir -p "$MXNET_ROOT" &&  \
+  cp make/config.mk . && \
+  echo "USE_BLAS=openblas" >>config.mk && \
+  echo "USE_OPENCV=0" >>config.mk && \
+  echo "USE_CUDA=0" >>config.mk && \
+  echo "USE_PROFILER=1" >>config.mk && \
+  echo "ADD_CFLAGS=-I/usr/include/openblas -Wno-strict-aliasing -Wno-sign-compare -ftrack-macro-expansion=0 -Wno-misleading-indentation" >>config.mk  && \
+  nice -n20 make -j`nproc` PREFIX=/opt/frameworks/mxnet
+
+RUN ln -s "$MXNET_ROOT/lib/libmxnet.so" /usr/lib/libmxnet.so
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH "$MXNET_ROOT/lib":$LD_LIBRARY_PATH
+ENV LIBRARY_PATH "$MXNET_ROOT/lib":$LIBRARY_PATH
+
+
+ENV MXNET_SRC_ROOT=/mxnet
 RUN nice -n20 make -j`nproc` -C $MXNET_SRC_ROOT
+
+
 RUN pip2 install --user -e $MXNET_SRC_ROOT/python \
     && pip2 uninstall -y mxnet
 
