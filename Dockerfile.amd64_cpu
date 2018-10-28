@@ -1,5 +1,5 @@
 FROM carml/go-mxnet:amd64-cpu-latest
-LABEL maintainer="pearson@illinois.edu"
+LABEL maintainer="zaidq2@illinois.edu"
 
 # Install PIP
 RUN apt-get update && apt-get install -y --no-install-recommends \
