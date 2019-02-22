@@ -21,7 +21,9 @@ FASHION_MNIST = {
 ORIG_DIR = Path(sys.argv[1])
 RESZ_DIR = Path(sys.argv[1])
 #SHAPE = (64, 64)
-SHAPE = (72, 72)
+#SHAPE = (72, 72)
+SIZE = 48
+SHAPE = (SIZE, SIZE)
 
 try:
     ORIG_DIR.mkdir()
@@ -44,7 +46,7 @@ for i, img in enumerate(train[:]):
                            mode='constant', cval=0) * 256
     big = big.astype(np.uint8)
     resized[i][:][:] = big
-store_mnist(RESZ_DIR.as_posix(), resized, labels, "train-72")
+store_mnist(RESZ_DIR.as_posix(), resized, labels, "train-" + str(SIZE))
 
 
 t10k, labels = load_mnist(ORIG_DIR.as_posix(), rows=28, cols=28, kind='t10k')
@@ -54,7 +56,7 @@ for i, img in enumerate(t10k[:]):
                            mode='constant', cval=0) * 256
     big = big.astype(np.uint8)
     resized[i][:][:] = big
-store_mnist(RESZ_DIR.as_posix(), resized, labels, "t10k-72")
+store_mnist(RESZ_DIR.as_posix(), resized, labels, "t10k-" + str(SIZE))
 
 for _, name in FASHION_MNIST.items():
     path = ORIG_DIR / name
