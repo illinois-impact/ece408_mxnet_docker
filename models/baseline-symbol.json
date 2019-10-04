@@ -9,7 +9,7 @@
       "op": "null", 
       "name": "convolution0_weight", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "no_bias": "True", 
         "num_filter": "12"
       }, 
@@ -19,7 +19,7 @@
       "op": "Convolution", 
       "name": "convolution0", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "no_bias": "True", 
         "num_filter": "12"
       }, 
@@ -45,7 +45,7 @@
       "op": "null", 
       "name": "convolution1_weight", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "no_bias": "True", 
         "num_filter": "24"
       }, 
@@ -55,7 +55,7 @@
       "op": "Convolution", 
       "name": "convolution1", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "no_bias": "True", 
         "num_filter": "24"
       }, 
@@ -141,5 +141,5 @@
     17
   ], 
   "heads": [[16, 0, 0]], 
-  "attrs": {"mxnet_version": ["int", 10300]}
+  "attrs": {"mxnet_version": ["int", 10301]}
 }

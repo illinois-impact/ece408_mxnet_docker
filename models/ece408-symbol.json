@@ -9,7 +9,7 @@
       "op": "null", 
       "name": "new0_weight", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "num_filter": "12"
       }, 
       "inputs": []
@@ -18,7 +18,7 @@
       "op": "New", 
       "name": "new0", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "num_filter": "12"
       }, 
       "inputs": [[0, 0, 0], [1, 0, 0]]
@@ -43,7 +43,7 @@
       "op": "null", 
       "name": "new1_weight", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "num_filter": "24"
       }, 
       "inputs": []
@@ -52,7 +52,7 @@
       "op": "New", 
       "name": "new1", 
       "attrs": {
-        "kernel": "(7, 7)", 
+        "kernel": "(5, 5)", 
         "num_filter": "24"
       }, 
       "inputs": [[4, 0, 0], [5, 0, 0]]
@@ -137,5 +137,5 @@
     17
   ], 
   "heads": [[16, 0, 0]], 
-  "attrs": {"mxnet_version": ["int", 10300]}
+  "attrs": {"mxnet_version": ["int", 10301]}
 }

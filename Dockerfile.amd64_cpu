@@ -1,4 +1,4 @@
-FROM carml/base:amd64-cpu-latest
+FROM carml/base:amd64-cpu-v0.2.22-b99dac2
 LABEL maintainer="zaidq2@illinois.edu"
 
 # Install PIP

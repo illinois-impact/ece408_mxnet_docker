@@ -10,12 +10,12 @@ BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 
 REPO_PREFIX = $(DOCKER_REPO):$(arch)
 
-GPU_LATEST = $(REPO_PREFIX)-gpu-latest
-GPU_BRANCH_LATEST = $(REPO_PREFIX)-gpu-$(BRANCH)-latest
-GPU_COMMIT = $(REPO_PREFIX)-gpu-$(COMMIT)
-CPU_LATEST = $(REPO_PREFIX)-cpu-latest
-CPU_BRANCH_LATEST = $(REPO_PREFIX)-cpu-$(BRANCH)-latest
-CPU_COMMIT = $(REPO_PREFIX)-cpu-$(COMMIT)
+GPU_LATEST = $(REPO_PREFIX)-gpu-latest-fa19
+GPU_BRANCH_LATEST = $(REPO_PREFIX)-gpu-$(BRANCH)-latest-fa19
+GPU_COMMIT = $(REPO_PREFIX)-gpu-$(COMMIT)-fa19
+CPU_LATEST = $(REPO_PREFIX)-cpu-latest-fa19
+CPU_BRANCH_LATEST = $(REPO_PREFIX)-cpu-$(BRANCH)-latest-fa19
+CPU_COMMIT = $(REPO_PREFIX)-cpu-$(COMMIT)-fa19
 
 BUILD_FLAGS = #--no-cache
 
